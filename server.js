@@ -24,16 +24,66 @@ mongoose.connect("mongodb://localhost/workout", {
 
 // VIEW ROUTES
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/index.html"))
-})
+  res.sendFile(path.join(__dirname, "./public/index.html"));
+});
 
 app.get("/exercise", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/exercise.html"))
-})
+  res.sendFile(path.join(__dirname, "./public/exercise.html"));
+});
 
 app.get("/stats", (req, res) => {
-  res.sendFile(path.join(__dirname, "./public/stats.html"))
-})
+  res.sendFile(path.join(__dirname, "./public/stats.html"));
+});
+
+// API ROUTES
+app.put("/api/workouts/:id", (req, res) => {
+  db.Workout.findByIdAndUpdate(
+    req.params.id,
+    { $push: {exercises: req.body}},
+    { new: true }
+  )
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+        message: "Unable to update workout.",
+      });
+    });
+});
+
+app.get("/api/workouts", (req, res) => {
+  db.Workout.find({})
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+        message: "Unable to retrieve workouts.",
+      });
+    });
+});
+
+app.post("/api/workouts", (req, res) => {
+  db.Workout.create({})
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+        message: "Unable to create workout.",
+      });
+    });
+});
 
 // CREATING A VISIBLE NOTICE THAT WE HAVE CONNECTED TO THE DB
 const connection = mongoose.connection;
