@@ -39,7 +39,7 @@ app.get("/stats", (req, res) => {
 app.put("/api/workouts/:id", (req, res) => {
   db.Workout.findByIdAndUpdate(
     req.params.id,
-    { $push: {exercises: req.body}},
+    { $push: { exercises: req.body } },
     { new: true }
   )
     .then((data) => {
@@ -81,6 +81,21 @@ app.post("/api/workouts", (req, res) => {
         success: false,
         data: null,
         message: "Unable to create workout.",
+      });
+    });
+});
+
+app.get("/api/workouts/range", (req, res) => {
+  db.Workout.find({})
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json({
+        success: false,
+        data: null,
+        message: "Unable to retrieve workouts.",
       });
     });
 });
