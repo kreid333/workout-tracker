@@ -22,6 +22,18 @@ mongoose.connect("mongodb://localhost/workout", {
   useUnifiedTopology: true,
 });
 
+// VIEW ROUTES
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"))
+})
+
+app.get("/exercise", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/exercise.html"))
+})
+
+app.get("/stats", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/stats.html"))
+})
 // CREATING A VISIBLE NOTICE THAT WE HAVE CONNECTED TO THE DB
 const connection = mongoose.connection;
 
