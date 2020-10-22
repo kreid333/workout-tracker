@@ -34,6 +34,7 @@ app.get("/exercise", (req, res) => {
 app.get("/stats", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/stats.html"))
 })
+
 // CREATING A VISIBLE NOTICE THAT WE HAVE CONNECTED TO THE DB
 const connection = mongoose.connection;
 
