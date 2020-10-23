@@ -86,7 +86,7 @@ app.post("/api/workouts", (req, res) => {
 });
 
 app.get("/api/workouts/range", (req, res) => {
-  db.Workout.find({})
+  db.Workout.find({}).limit(7)
     .then((data) => {
       res.json(data);
     })
