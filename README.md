@@ -1,4 +1,4 @@
-# Burger Logger
+# Workout Tracker
 
 
 ## Description 
